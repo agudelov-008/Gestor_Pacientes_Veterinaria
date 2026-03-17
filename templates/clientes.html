@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card p-4 shadow-sm">
+            <h4><i class="bi bi-person-plus"></i> Nuevo Cliente</h4>
+            <hr>
+            <form method="POST">
+                <input type="text" name="cedula" class="form-control mb-2" placeholder="Cédula" required>
+                <input type="text" name="nombres" class="form-control mb-2" placeholder="Nombres" required>
+                <input type="text" name="apellidos" class="form-control mb-2" placeholder="Apellidos" required>
+                <input type="text" name="direccion" class="form-control mb-2" placeholder="Dirección" required>
+                <input type="text" name="telefono" class="form-control mb-2" placeholder="Teléfono" required>
+                <button type="submit" class="btn btn-success w-100">Guardar Cliente</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card p-4 shadow-sm">
+            <h4>Listado de Clientes</h4>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Cédula</th>
+                            <th>Nombre Completo</th>
+                            <th>Teléfono</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in clientes %}
+                        <tr>
+                            <td>{{ c.cedula }}</td>
+                            <td>{{ c.nombres }} {{ c.apellidos }}</td>
+                            <td>{{ c.telefono }}</td>
+                            <td>
+                                <a href="/clientes/editar/{{ c.cedula }}" class="btn btn-sm btn-warning">Editar</a>
+                                <a href="/clientes/eliminar/{{ c.cedula }}" class="btn btn-sm btn-danger"
+                                    onclick="return confirm('¿Eliminar?')">Borrar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if not clientes %}
+            <div class="alert alert-info text-center">No hay clientes registrados.</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+# Entornos virtuales
+venv/
+env/
+.env
+
+# Archivos cacheados de Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Base de datos local (Opcional, pero recomendado)
+database.db
+
+# Configuración del IDE
+.vscode/
+.idea/

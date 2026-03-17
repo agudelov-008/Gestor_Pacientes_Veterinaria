@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow p-4 mx-auto" style="max-width: 500px;">
+    <h3>Editar Medicamento</h3>
+    <form method="POST">
+        <div class="mb-3">
+            <label>Nombre</label>
+            <input type="text" name="nombre" value="{{ m[1] }}" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Descripción</label>
+            <textarea name="descripcion" class="form-control" required>{{ m[2] }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label>Dosis</label>
+            <input type="text" name="dosis" value="{{ m[3] }}" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-info w-100">Actualizar</button>
+    </form>
+</div>
+{% endblock %}

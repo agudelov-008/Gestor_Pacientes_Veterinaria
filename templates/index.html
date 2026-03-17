@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="text-primary"><i class="bi bi-clipboard-pulse"></i> PETS S.A.</h2>
+        <p class="text-muted">Reporte de Control y Seguimiento Veterinario</p>
+    </div>
+    <div class="btn-group">
+        <a href="/clientes" class="btn btn-outline-secondary"><i class="bi bi-people"></i> Clientes</a>
+        <a href="/medicamentos" class="btn btn-outline-secondary"><i class="bi bi-capsule"></i> Medicamentos</a>
+        <a href="/mascotas" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Registrar Mascota</a>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">ID</th>
+                        <th>Nombre Mascota</th>
+                        <th>Raza</th>
+                        <th>Medicamento</th>
+                        <th>Dueño</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mascota in mascotas %}
+                    <tr>
+                        <td class="ps-4 text-muted small">{{ mascota[0] }}</td>
+                        <td>
+                            <span class="fw-bold text-dark">{{ mascota[1] }}</span>
+                        </td>
+                        <td><span class="badge bg-light text-dark border">{{ mascota[2] }}</span></td>
+                        <td>{{ mascota[6] if mascota[6] else 'Sin tratamiento' }}</td>
+                        <td>{{ mascota[5] }}</td>
+                        <td class="text-center">
+                            <div class="btn-group" role="group">
+                                <a href="/mascota/detalle/{{ mascota[0] }}" class="btn btn-sm btn-outline-primary" title="Ver Detalles">
+                                    <i class="bi bi-eye-fill"></i> Detalle
+                                </a>
+                                <a href="/mascota/eliminar/{{ mascota[0] }}" 
+                                   class="btn btn-sm btn-outline-danger" 
+                                   onclick="return confirm('¿Está seguro de eliminar el registro de {{ mascota[1] }}?')">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center py-5 text-muted">
+                            <i class="bi bi-info-circle d-block mb-2" style="font-size: 2rem;"></i>
+                            No hay mascotas registradas. Comience registrando clientes y medicamentos.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4 p-3 bg-light rounded border">
+    <small class="text-muted">
+        <strong>Nota del Sistema:</strong> Este reporte integra información cruzada de 3 tablas (Clientes, Medicamentos y Mascotas) mediante una arquitectura por capas y patrón DAO.
+    </small>
+</div>
+{% endblock %}

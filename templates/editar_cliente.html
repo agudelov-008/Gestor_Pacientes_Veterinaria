@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow p-4 mx-auto" style="max-width: 500px;">
+    <h3>Editar Cliente</h3>
+    <form method="POST">
+        <div class="mb-3">
+            <label>Cédula (No editable)</label>
+            <input type="text" value="{{ c[0] }}" class="form-control" disabled>
+        </div>
+        <div class="mb-3">
+            <label>Nombres</label>
+            <input type="text" name="nombres" value="{{ c.nombres }}" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Apellidos</label>
+            <input type="text" name="apellidos" value="{{ c.apellidos }}" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Dirección</label>
+            <input type="text" name="direccion" value="{{ c.direccion }}" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Teléfono</label>
+            <input type="text" name="telefono" value="{{ c.telefono }}" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Guardar Cambios</button>
+    </form>
+</div>
+{% endblock %}

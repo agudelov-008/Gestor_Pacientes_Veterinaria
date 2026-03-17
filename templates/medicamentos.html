@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card p-4">
+            <h4><i class="bi bi-capsule"></i> Nuevo Medicamento</h4>
+            <form method="POST">
+                <input type="text" name="nombre" class="form-control mb-2" placeholder="Nombre del Medicamento"
+                    required>
+                <textarea name="descripcion" class="form-control mb-2" placeholder="Descripción" rows="3"
+                    required></textarea>
+                <input type="text" name="dosis" class="form-control mb-2" placeholder="Dosis (ej: 5ml cada 8h)"
+                    required>
+                <button type="submit" class="btn btn-info w-100 text-white">Añadir al Catálogo</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card p-4">
+            <h4>Catálogo de Medicamentos</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Cédula</th>
+                        <th>Nombre Completo</th>
+                        <th>Teléfono</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in medicamentos %}
+                    <tr>
+                        <td>{{ m.nombre }}</td>
+                        <td>{{ m.descripcion }}</td>
+                        <td>{{ m.dosis }}</td>
+                        <td>
+                            <a href="/medicamentos/editar/{{ m.id_med }}" class="btn btn-sm btn-warning">Editar</a>
+                            <a href="/medicamentos/eliminar/{{ m.id_med }}" class="btn btn-sm btn-danger"
+                                onclick="return confirm('¿Borrar?')">Borrar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
