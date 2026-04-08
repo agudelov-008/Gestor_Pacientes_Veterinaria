@@ -1,0 +1,47 @@
+1. Resumen del Proyecto
+PETS S.A. es una aplicación web transaccional desarrollada para optimizar la gestión de historiales clínicos en clínicas veterinarias. El sistema centraliza la información de los clientes (dueños), el catálogo de medicamentos y los pacientes (mascotas), permitiendo asignar tratamientos médicos mediante un modelo de datos relacional que evita la redundancia y garantiza la integridad referencial.
+
+2. Cumplimiento de la Rúbrica de Evaluación
+A continuación, se detalla técnicamente cómo el sistema desarrollado cumple a cabalidad con cada uno de los lineamientos solicitados en la rúbrica del proyecto:
+
+2.1. "Construir una aplicación que implemente un framework y aplique patrones de diseño"
+Implementación de Framework: El proyecto fue construido utilizando Flask, un robusto micro-framework de Python. Se aprovechó su sistema de enrutamiento para gestionar peticiones HTTP (GET/POST) y su motor Jinja2 para la inyección dinámica de datos en las vistas (HTML).
+
+Patrones de Diseño (MVC y DAO): La arquitectura del proyecto obedece al principio de Separación de Responsabilidades (Separation of Concerns).
+
+Se implementó un controlador central (app.py) y un sistema de plantillas (Vistas).
+
+Para la capa de persistencia, se implementó estrictamente el Patrón DAO (Data Access Object). Se crearon clases específicas (ClienteDAO, MascotaDAO, MedicamentoDAO) que aíslan por completo la lógica de base de datos de la lógica de negocio, haciendo el sistema altamente escalable.
+
+2.2. "La aplicación debe tener una conexión a una base de datos"
+Motor de Base de Datos: Se implementó una base de datos relacional utilizando SQLite3.
+
+Modelo Relacional: El esquema resuelve problemas de alta complejidad en la estructura de datos:
+
+Relación 1:N (Uno a Muchos): Un cliente puede tener múltiples mascotas, gestionado mediante la llave foránea cedula_cliente.
+
+Relación N:M (Muchos a Muchos): Se superó el reto de asignar múltiples medicamentos a múltiples mascotas mediante la creación de una tabla intermedia (tratamientos). Esto permite consultas SQL avanzadas (mediante JOIN y GROUP_CONCAT) para generar reportes consolidados sin duplicar registros.
+
+2.3. "Implementar las acciones básicas del manejo de registros (CRUD)"
+El sistema no se limita a un solo módulo, sino que despliega tres ciclos CRUD completos y funcionales:
+
+Módulo de Clientes: Permite Crear, Leer (Listar), Actualizar y Eliminar dueños de mascotas.
+
+Módulo de Medicamentos: Gestión integral del catálogo farmacológico (altas, bajas y modificaciones de dosis).
+
+Módulo de Mascotas (Expedientes Clínicos): El CRUD más complejo, que permite registrar al paciente, vincularlo a un cliente existente y asignarle una lista dinámica de medicamentos en una sola transacción.
+
+2.4. "Permitiendo la aplicación de normas, la calidad, seguridad y fiabilidad"
+El desarrollo del código fuente obedece a estándares de la industria, garantizando un software robusto:
+
+Seguridad (Prevención de SQL Injection): Todas las transacciones a la base de datos dentro de las clases DAO se realizan mediante consultas parametrizadas (uso de tuplas de seguridad). El sistema jamás concatena variables directamente en las sentencias SQL, mitigando ataques de inyección.
+
+Fiabilidad (Manejo de Excepciones): Se implementó "Programación Defensiva". El sistema intercepta errores a nivel de base de datos, como el intento de registrar Cédulas o IDs duplicados (sqlite3.IntegrityError). En lugar de interrumpir la ejecución del servidor (Error 500), el controlador procesa la excepción mediante lógica booleana y bloques try-except, retornando mensajes amigables (alertas Flash) que guían al usuario, garantizando la continuidad del servicio.
+
+Calidad (Modularidad y UX): El código está modularizado en paquetes (models/, dao/, templates/). A nivel de interfaz, se utilizó Bootstrap 5 y JavaScript para mejorar la experiencia de usuario (UX), ocultando listados extensos de medicamentos hasta que el administrador habilita explícitamente el "Modo de Edición" en los historiales clínicos.
+
+2.5. "Puede ser construida en cualquier lenguaje de programación"
+La solución fue programada enteramente en Python 3, cumpliendo con los estándares PEP-8 de legibilidad y estructuración, demostrando el dominio de la programación orientada a objetos (POO) aplicada al desarrollo web backend.
+
+3. Conclusión
+El sistema PETS S.A. sobrepasa la creación de un simple registro transaccional; representa una arquitectura de software pensada para el crecimiento, donde la aplicación rigurosa de patrones de diseño (DAO), el manejo de excepciones y un correcto modelado de bases de datos relacionales aseguran un producto seguro, fiable y de alta calidad técnica.

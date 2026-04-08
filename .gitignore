@@ -8,7 +8,7 @@ __pycache__/
 *.pyc
 *.pyo
 
-# Base de datos local (Opcional, pero recomendado)
+# Base de datos local 
 database.db
 
 # Configuración del IDE
